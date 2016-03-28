@@ -50,18 +50,18 @@
 (auto-compression-mode 1)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;==========================
 ;; Add for Org-Mode
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;==========================
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 (add-hook 'org-mode-hook (lambda() (setq truncate-lines nil))) ;; for truncate-line auto
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;===========================
 ;; for w3m
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;===========================
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (load-file "~/.emacs.d/lisp/web-mode.el")
 (require 'web-mode)
@@ -120,11 +120,14 @@
 ;;=              Package Repositories
 ;;============================
 (require 'package)
-;;(add-to-list 'package-archives
-;;	     '("melpa" . "http://melpa.org/packages/")
-;;	     t)
+
+(add-to-list 'package-archives
+             '("elpa" . "https://elpa.gnu.org/packagers/") t)
+;(package-initialize)
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+;;(add-to-list 'package-archives
+;;             '("marmalade" . "https://marmalade-repo.org/packages/") t)
 (package-initialize)
 
 
@@ -208,3 +211,42 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
      (shell-command-to-string
       (concat "sdcv -n "
               (buffer-substring begin end))))))
+
+
+;;==================================
+;;=   Configure for TaskJuggler
+;;==================================
+;(add-to-list 'load-path "~/local/src/org-mode/contrib/lisp/")
+(load-file "~/local/src/org-mode/contrib/lisp/ox-taskjuggler.el")
+(require 'ox-taskjuggler)
+
+
+;;==================================
+;;=   Configure for Tab Bar
+;;==================================
+(load-file "~/Documents/emacs/tabbar-2.0.1.el")
+(require 'tabbar)
+(tabbar-mode 1)
+(setq tabbar-buffer-groups-function (lambda() (list "All")))
+(setq tabbar-buffer-list-function
+    (lambda ()
+        (remove-if
+          (lambda(buffer)
+             (find (aref (buffer-name buffer) 0) " *"))
+          (buffer-list))))
+(set-face-attribute 'tabbar-button nil)
+
+;;set tabbar's backgroud color
+(set-face-attribute 'tabbar-default nil
+                    :background "gray"
+                    :foreground "gray30")
+(set-face-attribute 'tabbar-selected nil
+                    :inherit 'tabbar-default
+                    ;;:background "green"
+                    :box '(:line-width 2 :color "DarkGoldenrod") )
+(set-face-attribute 'tabbar-unselected nil
+                    :inherit 'tabbar-default
+                    :box '(:line-width 2 :color "gray"))
+
+;; USEFUL: set tabbar's separator gap
+(custom-set-variables '(tabbar-separator (quote (1.5))))
