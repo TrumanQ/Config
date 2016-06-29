@@ -16,7 +16,8 @@
     ("9db09837597dacb8e6f38eae5df8f39fd28c98420a0b1626da1954b7a423d8b5" default)))
  '(org-agenda-files
    (quote
-    ("~/workspace/TEX/Org/agenda1" "~/workspace/TEX/Org/calendar"))))
+    ("~/workspace/TEX/sandbox.org" "~/workspace/TEX/Org/agenda1" "~/workspace/TEX/Org/calendar")))
+ '(tabbar-separator (quote (1.5))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -35,6 +36,8 @@
 ;;==========================
 ;;=            Configure for Git
 ;;= here, I used magit package
+;;= Magit is an interface to the version control system Git, implemented as an Emacs package.
+;;= https://magit.vc/
 ;;==========================
 ;;(require 'git)
 (autoload 'magit-status "magit" nil t)
@@ -55,6 +58,7 @@
 ;;==========================
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
+(define-key global-map "\C-cc" 'org-capture)
 (setq org-log-done t)
 (add-hook 'org-mode-hook (lambda() (setq truncate-lines nil))) ;; for truncate-line auto
 
@@ -215,6 +219,10 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
 
 ;;==================================
 ;;=   Configure for TaskJuggler
+;;=
+;;= A tool to schedule and track complex projects. The textual project description is compiled into schedules, status reports and GANTT charts.
+;;=
+;;= http://www.taskjuggler.org/
 ;;==================================
 ;(add-to-list 'load-path "~/local/src/org-mode/contrib/lisp/")
 (load-file "~/local/src/org-mode/contrib/lisp/ox-taskjuggler.el")
@@ -224,7 +232,7 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
 ;;==================================
 ;;=   Configure for Tab Bar
 ;;==================================
-(load-file "~/Documents/emacs/tabbar-2.0.1.el")
+(load-file "~/.emacs.d/tabbar-2.0.1.el")
 (require 'tabbar)
 (tabbar-mode 1)
 (setq tabbar-buffer-groups-function (lambda() (list "All")))
@@ -249,4 +257,4 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
                     :box '(:line-width 2 :color "gray"))
 
 ;; USEFUL: set tabbar's separator gap
-(custom-set-variables '(tabbar-separator (quote (1.5))))
+
